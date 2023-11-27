@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lesson01のプログラムの仕様</title>
+ 
+</head>
+<body>
+  <h1>DOM操作の基本</h1>
+  <h2>プログラムの仕様</h2>
+  <h3>HTML</h3>
+  <p>pタグを作る。内容は何でもよいが後で中国語の音声出力をするように変更したいので中国語文章を入力する。javascriptで操作できるようにするためにidを設定する。仮にp1と命名する。</p>
+  <h3>CSS</h3>
+  <p>idがp1に対して文字サイズを24px cssで設定。</p>
+  <p>中国語の文にカーソルを置くとポインターが手の形になる。</p>
+  <h3>Javascript</h3>
+  <p>定数p1を用意し定数p1にgetElementByIdメソッドでHTMLのpタグをセットする。</p>
+  <p>定数p1にclickイベントを設定する。
+    addEventListenerメソッドを使用する。
+  </p>
+  <p>中国語の文をclickしたら文字色を青色にする。</p>
+  <p>青色にする方法は2種類ある。
+    定数p1のstyle.colorプロパティにblueをセット　又は
+    CSSに文字色が青色のクラスを作り、定数p1.classList.addで青色のクラスをセットする。
+  </p>
+  
+</body>
+</html>

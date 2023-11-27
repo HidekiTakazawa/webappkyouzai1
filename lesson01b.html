@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #p1 {
+      
+      font-size: 24px;
+    }
+    #p1:hover {
+      cursor: pointer;
+    }
+    /* classList.addのために作成。名前は任意 */
+    .colorBlue {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>DOM操作の基本,イベントリスナーの設定</h1>
+    <p>------------------------------------------------------------------------------</p>
+  <p id="p1">我每天学习中文。 </p>
+
+
+  <script>
+    const p1 = document.getElementById('p1');
+    p1.addEventListener('click', () => {
+      // style.colorプロパティのセット方法
+      p1.style.color = 'blue';
+      // classList.addで青色のクラスを追加する方法
+      // p1.classList.add("colorBlue");
+     
+    });
+  </script>
+  
+ 
+  
+</body>
+</html>
