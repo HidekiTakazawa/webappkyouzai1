@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リスト要素の動的追加</title>
+  <style>
+   #btn {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+   }
+  </style>
+</head>
+<body>
+  <h1>DOM操作の基本 リスト要素のulタグにliタグを動的に追加する。</h1>
+  <p>
+    &lt;ul&gt;<br>
+      &lt;li&gt;中国&lt;/li&gt;<br>
+      &lt;li&gt;日本&lt;/li&gt;<br>
+      &lt;li&gt;韓国&lt;/li&gt;<br>
+      &lt;li&gt;北朝鮮&lt;/li&gt;<br>
+     
+    &lt;/ul&gt;<br>
+    と記入すれば下のようにリスト形式で表示されます。
+    <span><strong>入力欄に文字列を入れ、追加ボタンをクリックすればli項目が追加されます。</strong></span>
+  </p>
+  
+  <ul>
+    <li>中国</li>
+    <li>日本</li>
+    <li>韓国</li>
+    <li>北朝鮮</li>
+  </ul>
+  <p>------------------------------------------------------------</p>
+  <label for="todo">TODO input:</label>
+  <input type="text" id="todo" name="todo">
+  <input type="button" id="btn" value="追加">
+  <ul id="ul1">
+
+  </ul>
+  
+  <script>
+    const btn = document.getElementById('btn');
+    btn.addEventListener('click', () => {
+      const ul1 = document.getElementById('ul1');
+      const li = document.createElement('li');
+      const todo = document.getElementById('todo');
+      li.textContent = todo.value;
+      ul1.appendChild(li);
+    });
+  </script>
+  
+ 
+  
+</body>
+</html>

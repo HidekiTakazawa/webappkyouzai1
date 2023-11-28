@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リスト要素の動的追加 プログラムの説明</title>
+  
+</head>
+<body>
+  <h1>DOM操作の基本 リスト要素のulタグにliタグを動的に追加する。</h1>
+  <h2>htmlの記述</h2>
+  <p>
+    &lt;label for="todo"&gt;TODO input:&lt;/label&gt;<br>
+    &lt;input type="text" id="todo" name="todo"&gt;<br>
+    &lt;input type="button" id="btn" value="追加"&gt;<br>
+    &lt;ul id="ul1"&gt;
+
+    &lt;/ul&gt;
+
+  </p>
+  <p>入力欄のinputboxのidをtodoにした。
+    追加のボタンのidをbtn にした。
+    ulタグのidをul1とした。ulタグの子供のliタグの記述はない。これはjavascript で動的に追加する。
+  </p>
+  <h2>CSSの記述</h2>
+  <p><code>
+    #btn {
+      display: inline-block;
+      width: 100px;
+      height: 40px;
+     }
+
+  </code>
+  追加ボタンはinputタグで定義した。inputタグはinline要素なのでwidth指定ができない。だからdisplayをinline-blockにした。
+  </p>
+  <h2>Javascriptの記述。</h2>
+  <p><code>
+    const btn = document.getElementById('btn');</code><br><code>
+    btn.addEventListener('click', () => { </code><br><code>
+      const ul1 = document.getElementById('ul1');</code><br><code>
+      const li = document.createElement('li');</code><br><code>
+      const todo = document.getElementById('todo');</code><br><code>
+      li.textContent = todo.value;</code><br><code>
+      ul1.appendChild(li);</code><br>
+    <code>});</code>
+
+  </p>
+  <p>
+    btnのDOMを取得して定数のbtnを作成する。getElementByIdを使用。
+    btnのクリックイベントを定義する。
+    ul1のDOMを取得する。li要素を新規作成し定数のliを作成する。
+    todoのDOMを取得して定数のtodoを作成する。
+    liのtextContentプロパティにtodoのvalueプロパティの値をセットする。
+    ur1のappendChildメソッドを使いliをur1に追加する。
+
+  </p>
+</body>
+</html>
