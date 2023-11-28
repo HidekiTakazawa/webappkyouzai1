@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>lesson01の拡張</title>
- 
+  <style>
+    #p1 {
+
+      font-size: 24px;
+    }
+
+    #p1:hover {
+      cursor: pointer;
+    }
+
+    /* classList.addのために作成。名前は任意 */
+    .colorBlue {
+      color: blue;
+    }
+  </style>
 </head>
+
 <body>
   <h1>lesson01の拡張</h1>
   <ul>
-    <li>中国語文章をクリックしたら中国語の音声を出力する。</li>
-    <li>中国語の文章をクリックするたびに、文字色を青色、黒色と交互に切り替える。</li>
+    <li>中国語文章をクリックしたら中国語の音声を出力する。web speech apiでchrome検索</li>
+    <li>中国語の文章をクリックするたびに、文字色を青色、黒色と交互に切り替える。mdn classlistでchrome検索</li>
   </ul>
-  
-  
+
+  <p>------------------------------------------------------------------------------</p>
+  <p id="p1">我每天学习中文。 </p>
+
+
+  <script>
+    const p1 = document.getElementById('p1');
+    p1.addEventListener('click', () => {
+    p1.classList.toggle("colorBlue");
+    let uttr = new SpeechSynthesisUtterance(p1.textContent);
+    uttr.lang = "zh-CN"
+    
+    speechSynthesis.cancel();
+    speechSynthesis.speak(uttr);
+    });
+  </script>
+
+
+
 </body>
+
 </html>
