@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>不具合点を改良　入力欄フォーカス設定</title>
+  <style>
+   #btn {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+   }
+  </style>
+</head>
+<body>
+  <h1>DOM操作の基本 リスト要素のulタグにliタグを動的に追加する。</h1>
+  <ul>
+    <li>すぐに入力できるようにカーソルを入力欄に置くようにする。</li>
+    <li>focus(): JavaScript でフォーカス移動するために使用する。フォーカスしたい HTML 要素を取得して、このメソッドを呼び出す。</li>
+    <li>リストに追加処理が完了したら入力欄を空白にする。</li>
+  </ul>
+  
+  <p>------------------------------------------------------------</p>
+  <label for="todo">TODO input:</label>
+  <input type="text" id="todo" name="todo">
+  <input type="button" id="btn" value="追加">
+  <ul id="ul1">
+
+  </ul>
+  
+  <script>
+    const btn = document.getElementById('btn');
+    const todo = document.getElementById('todo');
+    todo.focus();
+    btn.addEventListener('click', () => {
+      const ul1 = document.getElementById('ul1');
+      const li = document.createElement('li');
+      li.textContent = todo.value;
+      ul1.appendChild(li);
+      todo.value = '';
+      todo.focus();
+    
+    });
+  </script>
+  
+ 
+  
+</body>
+</html>
