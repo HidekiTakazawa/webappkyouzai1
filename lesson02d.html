@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM操作の基本 リスト要素のulタグにliタグを動的に追加する。</title>
+  <style>
+    #btn {
+      display: inline-block;
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>DOM操作の基本 リスト要素のulタグにliタグを動的に追加する。</h1>
+  <ul>
+    <li>すぐに入力できるようにカーソルを入力欄に置くようにする。</li>
+    <li>focus(): JavaScript でフォーカス移動するために使用する。フォーカスしたい HTML 要素を取得して、このメソッドを呼び出す。</li>
+    <li>リストに追加処理が完了したら入力欄を空白にする。</li>
+  </ul>
+
+  <p>------------------------------------------------------------</p>
+  <label for="todo">TODO input:</label>
+  <input type="text" id="todo" name="todo">
+  <input type="button" id="btn" value="追加">
+  <input type="button" id="update" value="更新">
+  <input type="button" id="sakujyo" value="削除">
+  <ul id="ul1">
+
+  </ul>
+
+  <script>
+    let liSave; // 変更、削除用
+    const btn = document.getElementById('btn');
+    const update = document.getElementById('update');
+    const sakujyo = document.getElementById('sakujyo');
+    const todo = document.getElementById('todo');
+    update.style.display = 'none';
+    sakujyo.style.display = 'none';
+    todo.focus();
+    btn.addEventListener('click', () => {
+      const ul1 = document.getElementById('ul1');
+      const li = document.createElement('li');
+      li.textContent = todo.value;
+      ul1.appendChild(li);
+      todo.value = '';
+      todo.focus();
+    });
+    ul1.addEventListener('click', (event) => {
+      liSave = event.target;
+      const li = event.target;
+      todo.value = li.textContent;
+      btn.style.display = 'none';
+      update.style.display = 'inline-block';
+      sakujyo.style.display = 'inline-block';
+    });
+    update.addEventListener('click', () => {
+
+      liSave.textContent = todo.value;
+      btn.style.display = 'inline-block';
+      update.style.display = 'none';
+      sakujyo.style.display = 'none';
+      todo.value = '';
+      todo.focus();
+    });
+    sakujyo.addEventListener('click', () => {
+      // const ul1 = document.getElementById('ul1');
+      // const li = ul1.querySelector('li:nth-child(1)');
+      ul1.removeChild(liSave);
+      btn.style.display = 'inline-block';
+      update.style.display = 'none';
+      sakujyo.style.display = 'none';
+      todo.value = '';
+      todo.focus();
+    });
+  </script>
+</body>
+
+</html>
