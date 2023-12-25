@@ -36,12 +36,12 @@
   <script>
     const p1 = document.getElementById('p1');
     p1.addEventListener('click', () => {
-    p1.classList.toggle("colorBlue");
-    let uttr = new SpeechSynthesisUtterance(p1.textContent);
-    uttr.lang = "zh-CN"
-    
-    speechSynthesis.cancel();
-    speechSynthesis.speak(uttr);
+      p1.classList.toggle("colorBlue");
+      let uttr = new SpeechSynthesisUtterance(p1.textContent);
+      uttr.lang = "zh-CN"
+
+      speechSynthesis.cancel();
+      speechSynthesis.speak(uttr);
     });
   </script>
 

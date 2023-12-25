@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>絞り込み検索</title>
+  <style>
+    #myInput {
+      
+      width: 100%;
+      /* Full-width */
+      font-size: 16px;
+      /* Increase font-size */
+      padding: 12px 20px 12px 40px;
+      /* Add some padding */
+      border: 1px solid #ddd;
+      /* Add a grey border */
+      margin-bottom: 12px;
+      /* Add some space below the input */
+    }
+
+    #myUL {
+      /* Remove default list styling */
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    
+    
+  </style>
+</head>
+
+<body>
+  <label><a target="_blank" href="https://dubdesign.net/download/html-css/javascript-moresearch/">参考サイト</a></label>
+  <ul>
+    <li>日中同形異義語の検索機能を実現するために上記サイトを大いに参考にした。</li>
+    <li>上記サイトのHTML,CSS,Javascriptをそのままコピーして動くことを確認した。</li>
+    <li>でもプログラムは、高沢流に少し書き換えた。</li>
+    <li>このレッスンの肝は、検索文字列に一致しないものはdisplayをnoneにして非表示にすること。</li>
+    <li>これによって検索文字で絞り込めたことになる。</li>
+    <li>検索文字の一部が同じものを表示する。</li>
+  </ul>
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="検索したい言葉を入力してください。">
+  <ul id="myUL">
+    <li>東京</li>
+    <li>大阪</li>
+    <li>名古屋</li>
+    <li>福岡</li>
+    <li>京都</li>
+    <li>兵庫</li>
+    <li>札幌</li>
+    <li>沖縄</li>
+    <li>千葉</li>
+  </ul>
+  <script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      let lis = ul.children; // ulの子供　すなわちli要素を取得する。liのすべてだから複数形のlisとした。
+      for (let li of lis) {
+        console.log(li.textContent);
+        txtValue = li.textContent || li.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li.style.display = "";
+        } else {
+          li.style.display = "none";  // displayをnoneにして非表示にする。
+        }
+      }
+      
+      
+    }
+  </script>
+
+</body>
+
+</html>
