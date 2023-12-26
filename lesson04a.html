@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Speech APIを学習する</title>
+
+</head>
+
+<body>
+  <h1>Web Speech APIを学習する</h1>
+  <div>
+    <ul>
+
+
+      <li><a target="_blank" href="https://monomonotech.jp/kurage/iot/webspeechapi_voice_recognition.html">参考サイト</a>
+      </li>
+      <li><a target="_blank" href="https://engineering.webstudio168.jp/2023/03/web-speech-api/">参考サイト</a></li>
+      <li><a target="_blank" href="https://zenn.dev/tomioka/articles/47af891c679ca3">参考サイト</a></li>
+    </ul>
+  </div>
+  <h2>Web Speech API</h2>
+  <button id="start_btn">start</button>
+  <button id="stop_btn">stop</button>
+  <small id="status"></small>
+  <h3>Recognition Result</h3>
+  <textarea id="show_progress" cols="100" rows="1"></textarea>
+  <div id="show_result"></div>
+
+
+
+  <script>
+    // Declare webkitSpeechRecognition
+    window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new webkitSpeechRecognition();
+
+    // Web Speech API Configuration
+    // Language
+    recognition.lang = 'ja';
+    // Show Progress
+    recognition.interimResults = true;
+    // Continuous recognition
+    recognition.continuous = true;
+
+    // Const
+    const start_btn = document.getElementById('start_btn');
+    const stop_btn = document.getElementById('stop_btn');
+    const show_progress = document.getElementById('show_progress')
+    const show_result = document.getElementById('show_result');
+
+    recognition.onsoundstart = function () {
+      document.getElementById('status').innerHTML = "Recognizing";
+    };
+    recognition.onnomatch = function () {
+      document.getElementById('status').innerHTML = "Try again";
+    };
+    recognition.onerror = function () {
+      document.getElementById('status').innerHTML = "ERROR";
+    };
+    recognition.onsoundend = function () {
+      document.getElementById('status').innerHTML = "Stopped";
+    };
+
+    start_btn.addEventListener('click', function () {
+      // Start recognition
+      recognition.start();
+      this.disabled = true;
+      stop_btn.disabled = false;
+    });
+
+    stop_btn.addEventListener('click', function () {
+      // Stop recognition
+      recognition.stop();
+      this.disabled = true;
+      start_btn.disabled = false;
+      show_progress.innerHTML = '';
+    });
+
+    recognition.onresult = function (event) {
+      var results = event.results;
+      for (var i = event.resultIndex; i < results.length; i++) {
+        if (results[i].isFinal)
+          show_result.innerHTML += '<div>' + results[i][0].transcript + '</div>';
+        else
+          show_progress.innerHTML = "[Progress] " + results[i][0].transcript;
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
