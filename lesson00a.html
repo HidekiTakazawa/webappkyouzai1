@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VS Codeでjavascriptのデバッグをする</title>
+
+</head>
+
+<body>
+  <label><a target="_blank" href="https://ics.media/entry/11356/">参考サイト</a></label>
+  <div>
+    <p>学習内容</p>
+    <ul>
+      <li>ブレークポイントの設定方法</li>
+      <li>変数の内容を確認できる。</li>
+      <li>VS Codeの拡張機能　Live Serverのインストール</li>
+      <li>Live Serverを使てWebアプリのデバッグ</li>
+      <li>DOM要素の内容を確認する</li>
+    </ul>
+    <p>
+      Live Server は、Visual Studio Code（VSCode）の拡張機能です。テキストエディタの変更内容をリアルタイムでブラウザに反映する機能で、簡易的なローカルサーバー環境を実現します。
+Live Server は、フロントエンド開発には欠かせない人気のツールです。ファイルを手動でリロードしなおすことなく、反映を確認できるので、効率的な開発ができます。
+    </p>
+    <p>-------------- 以下は参考サイトのHTML,Javascriptをコピーしたもの ------------------------</p>
+  </div>
+  <div>
+    <div class="form">
+      <input type="number" value="1" id="num1" />
+      +
+      <input type="number" value="2" id="num2" /> =
+      <span id="result"></span>
+    </div>
+    <div class="action">
+      <button id="buttonExecute">計算</button>
+    </div>
+  </div>
+
+  <script>
+    // DOM要素を参照
+    const elementButton = document.querySelector("#buttonExecute");
+
+    // イベントを登録
+    elementButton.addEventListener("click", update);
+
+    /** 計算し画面に結果を表示します。 */
+    function update() {
+      // 要素を参照
+      const elementNum1 = document.querySelector("#num1");
+      const elementNum2 = document.querySelector("#num2");
+      const elementResult = document.querySelector("#result");
+
+      // フォーム値を取得
+      const num1 = Number(elementNum1.value);
+      const num2 = Number(elementNum2.value);
+
+      // 足し算を行う
+      const result = num1 + num2;
+
+      // 画面に表示
+      elementResult.innerHTML = result; // テキストを代入
+    }
+
+
+  </script>
+
+</body>
+
+</html>
