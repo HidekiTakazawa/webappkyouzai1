@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gifファイルを使う</title>
+  <style type="text/css">
+    #buttonContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #myGif {
+        margin-right: auto;
+        margin-left: auto;
+        width: 100px;
+        height: 100px
+    }
+</style>
+
+</head>
+<body>
+  <h3>gifファイルを使う</h3>
+  <img id="myGif" src="images/shiba_hie.gif" style="display:none; " />
+  <button id="startButton">gifファイルを表示</button>
+  <button id="stopButton">gifファイルを非表示</button>
+
+  <script>
+    document.getElementById('startButton').addEventListener('click',  () => {
+      var gif = document.getElementById('myGif');
+      gif.style.display = 'block'; // GIFを表示
+
+    });
+    document.getElementById('stopButton').addEventListener('click', () =>  {
+      var gif = document.getElementById('myGif');
+      gif.style.display = 'none'; // GIFを表示
+  });
+
+    
+
+  </script>
+</body>
+</html>
