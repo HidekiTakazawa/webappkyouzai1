@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Display flex</title>
+  <style>
+    
+    .header {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      z-index: 10;
+      /* background-color: lemonchiffon; */
+      width: 100%;
+    }
+    h2 {
+      background-color: pink;
+    }
+    .header2 {
+      display: flex;
+    }
+    .linkurl {
+      background-color: tomato;
+      margin-bottom: 5px;
+    }
+    .linkurl2 {
+      margin-left: auto;
+    }
+    .aclass {
+      display: inline-block;
+      background-color: beige;
+      width: 100px;
+      height: 60px;
+      text-decoration: none;
+
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>アカンサス実用基礎中国語Q1(第1~3課)</h1>
+    <a href="https://docs.google.com/document/d/15ISxkNW7fCKa8DYFiW2iMyaj33Qc_SYCncthJE8bVws/edit?usp=sharing">
+      説明資料</a>
+    <div class="linkurl">
+      <a id="flash" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+      <a id="flash2" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+     
+    </div>
+    <h2>アカンサス実用基礎中国語Q1(第1~3課)</h2>
+    <div class="linkurl">
+      <a id="flash3" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+      <a id="flash4" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+     
+    </div>
+    <h2>変更1</h2>
+    <div class="linkurl">
+      <a class="aclass" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+      <a class="aclass" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+     
+    </div>
+    <div class="header2">
+      <h2>変更2</h2>
+      <div class="linkurl">
+        <a class="aclass" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+        <a class="aclass" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+       
+      </div>
+
+    </div>
+    <div class="header2">
+      <h2>変更3</h2>
+      <div class="linkurl2">
+        <a class="aclass" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+        <a class="aclass" href="https://tamagenai.github.io/kindaiQ2/" target="_blank">Q2(第4~9課)</a>
+       
+      </div>
+
+    </div>
+    
+  </div>
+  
+</body>
+</html>
