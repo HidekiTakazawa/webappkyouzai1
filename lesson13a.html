@@ -29,6 +29,13 @@
       font-size: 16px;
       padding: 0.5em;
     }
+    #voiceInButton {
+      margin-right: 1em;
+    }
+    .voiceRecording {
+      background-color: red;
+      color: white;
+    }
 
 
   </style>
@@ -167,7 +174,7 @@
         return;
       }
       isRecording = true;
-
+      voiceInButton.classList.add('voiceRecording');
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         evaluate(hanyu.value, transcript);
@@ -226,6 +233,8 @@
 
         score.textContent = resultScore + "点";
         judgment.textContent = feedback;
+        voiceInButton.classList.remove('voiceRecording');
+        isRecording = false;
 
       } catch (err) {
         alert("評価エラー:\n" + err.message);
