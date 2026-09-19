@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+<head>
+  <base target="_top" />
+  <!-- Vue.js 3 をCDNから読み込み -->
+  <title>Todo Vue学習</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- 簡単なスタイル -->
+  <style>
+    body {
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    #app {
+      max-width: 480px;
+      width: 100%;
+      margin: 20px;
+      padding: 30px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .input-group {
+      display: flex;
+      width: 480px;
+      margin: 0 auto;
+      margin-bottom: 10px;
+    }
+
+    .input-group label {
+      width: 100%;
+      margin-right: 10px;
+      display: flex;
+
+    }
+
+    .input-group input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-right: auto;
+    }
+
+    .input-group ul {
+      list-style: none;
+      padding: 0;
+
+    }
+
+    .todosArea li {
+      display: flex;
+
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .todosArea li label {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
+    }
+
+
+
+    .todosArea li input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .todoText {
+      flex-grow: 1;
+      text-align: left;
+      margin-left: 10px;
+    }
+
+    span.completed {
+      text-decoration: line-through;
+      color: #ccc;
+    }
+
+    .todosArea li button {
+      margin-left: 10px;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .todosArea li input[type="text"] {
+      flex-grow: 1;
+    }
+
+    button {
+      background-color: #e0e0e0;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .material-icons {
+      font-size: 20px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: blue;
+      color: white;
+      border-radius: 4px;
+    }
+
+    .material-icons:hover {
+      background-color: #0000ee;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Vueのマウントポイント -->
+  <div id="app">
+    <h2>Todo処理</h2>
+    <div class="input-group">
+      <label for="newTodo">作業
+        <input type="text" id="newTodo" v-model="newTodo" @keyup.enter="addTodo()" ref="newTodoInput"
+          placeholder="新しい作業を入力">
+        <button @click="addTodo()" title="追加"><span class="material-icons">add</span></button>
+      </label>
+    </div>
+
+    <div class="todosArea">
+
+      <ul>
+        <li v-for="todo in todos" :key="todo.id" :class="{ completed: todo.isDone }">
+          <template v-if="editingID === todo.id">
+            <input type="text" v-model="editingText" :ref="(el) => setEditInputRef(el, todo.id)"
+              @keyup.enter="saveTodo(todo)" @keyup.esc="editingID = null" placeholder="編集内容を入力">
+            <button @click="saveTodo(todo)" title="保存"><span class="material-icons">save</span>
+            </button>
+            <button @click="cancelEdit" title="キャンセル"><span class="material-icons">close</span>
+            </button>
+            
+          </template>
+          <template v-else>
+            <label>
+              <input type="checkbox" v-model="todo.isDone">
+              <span class="todoText" :class="{ completed: todo.isDone }">{{ todo.todoText }}</span>
+              <button @click.stop.prevent="editStart(todo)" title="編集"><span class="material-icons">edit</span>
+              </button>
+
+              <button @click.stop.prevent="deleteTodo(todo)" title="削除"><span class="material-icons">delete</span>
+              </button>
+
+            </label>
+          </template>
+
+        </li>
+
+      </ul>
+
+
+
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted, watch, nextTick } = Vue;
+
+    createApp({
+      setup() {
+        // リアクティブなデータ定義
+
+        const newTodo = ref("");
+        const todos = ref([
+
+        ]);
+        const newTodoInput = ref(null);
+        const setEditInputRef = (el, todoId) => {
+          if (el && editingID.value === todoId) {
+            nextTick(() => {
+              el.focus();
+            });
+          }
+        };
+        onMounted(() => {
+          newTodoInput.value.focus();
+          const storedTodos = localStorage.getItem("todoVueKyouzai1");
+          if (storedTodos) {
+            todos.value.push(...JSON.parse(storedTodos));
+            // todos.value = JSON.parse(storedTodos);
+          }
+
+        });
+        watch(todos.value, (updateTodos) => {
+          localStorage.setItem("todoVueKyouzai1", JSON.stringify(updateTodos));
+        });
+
+        const editingID = ref(null);
+        const editingText = ref("");
+        const addTodo = () => {
+          todos.value.push({
+            id: Date.now(),
+            todoText: newTodo.value,
+            isDone: false,
+          });
+          newTodo.value = "";
+        };
+        const editStart = (todo) => {
+          editingID.value = todo.id;
+          editingText.value = todo.todoText;
+        };
+
+        const saveTodo = (todo) => {
+          todo.todoText = editingText.value;
+          editingID.value = null;
+          newTodoInput.value.focus();
+        };
+        const cancelEdit = () => {
+          editingText.value = "";
+          editingID.value = null;
+          newTodoInput.value.focus();
+        };
+        const deleteTodo = (todo) => {
+          const result = window.confirm("削除してもよろしいですか？");
+
+          if (result) {
+            todos.value.splice(todos.value.indexOf(todo), 1);
+            // 「OK」がクリックされたときの処理
+            console.log("削除を実行します");
+          } else {
+            // 「キャンセル」がクリックされたときの処理
+            console.log("キャンセルされました");
+          }
+          newTodoInput.value.focus();
+
+        };
+
+
+        return {
+          newTodo,
+          todos,
+          editingID,
+          editingText,
+          newTodoInput,
+          setEditInputRef,
+          editStart,
+          saveTodo,
+          addTodo,
+          deleteTodo,
+          cancelEdit,
+        };
+      },
+    }).mount("#app");
+  </script>
+</body>
+
+</html>

@@ -54,8 +54,9 @@
     </div>
 
     <div>
-      <button id="voiceOutButton">聞く</button>
-      <button id="voiceInButton">音声入力</button>
+      <button class="btnStyle" id="voiceOutButton">聞く</button>
+      <button class="btnStyle" id="voiceInButton">音声入力</button>
+      <button class="btnStyle" id="clearButton">クリア</button>
     </div>
     <div id="resultArea" style="display: none">
       <h2>判定結果</h2>
@@ -71,10 +72,12 @@
     const targetPinyin = document.getElementById("targetPinyin");
     const voiceOutButton = document.getElementById("voiceOutButton");
     const voiceInButton = document.getElementById("voiceInButton");
+    const clearButton = document.getElementById("clearButton");
     const score = document.getElementById("score");
     const judgment = document.getElementById("judgment");
     const userHanyu = document.getElementById("userHanyu");
     const userPinyin = document.getElementById("userPinyin");
+    const resultArea = document.getElementById("resultArea");
     let recognition = null;
     let isRecording = false;
     let isPlaying = false;
@@ -143,6 +146,12 @@
     voiceInButton.addEventListener('click', () => {
       toggleMic();
     });
+    clearButton.addEventListener('click', () => {
+      hanyu.value = "";
+      targetPinyin.textContent = "";
+      resultArea.style.display = "none";
+      
+    });
 
     const playAudio = (text) => {
       if (!text || isPlaying) return;
@@ -175,6 +184,7 @@
       }
       isRecording = true;
       voiceInButton.classList.add('voiceRecording');
+      voiceInButton.textContent = "レコード中";
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         evaluate(hanyu.value, transcript);
@@ -234,6 +244,7 @@
         score.textContent = resultScore + "点";
         judgment.textContent = feedback;
         voiceInButton.classList.remove('voiceRecording');
+        voiceInButton.textContent = "音声入力";
         isRecording = false;
 
       } catch (err) {
